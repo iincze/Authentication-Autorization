@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Basics.Controllers
 {
@@ -22,12 +19,19 @@ namespace Basics.Controllers
             return View();
         }
 
+        [Authorize(Policy = "Claim.DoB")]
+        public IActionResult SecretPolicy()
+        {
+            return View("Secret");
+        }
+
         public IActionResult Authenticate()
         {
             var grandmaClaims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, "Pistike"),
                 new Claim(ClaimTypes.Email, "SolenzaBigDaddy@gmail.com"),
+                new Claim(ClaimTypes.DateOfBirth, "11/11/2000"),
                 new Claim("Grandma.Says", "Pistike is the best")
             };
 
