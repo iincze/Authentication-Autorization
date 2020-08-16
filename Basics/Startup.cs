@@ -53,11 +53,11 @@ namespace Basics
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }           
+            }
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseAuthorization();            
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

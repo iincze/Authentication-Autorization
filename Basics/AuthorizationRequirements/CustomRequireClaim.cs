@@ -10,14 +10,14 @@ namespace Basics.AuthorizationRequirements
 
         public CustomRequireClaim(string claimType)
         {
-            ClaimType = claimType; 
+            ClaimType = claimType;
         }
     }
 
     public class CustomRequireClaimHandler : AuthorizationHandler<CustomRequireClaim>
     {
         protected override Task HandleRequirementAsync(
-            AuthorizationHandlerContext context, 
+            AuthorizationHandlerContext context,
             CustomRequireClaim requirement)
         {
             var hasClaim = context.User.Claims.Any(x => x.Type == requirement.ClaimType);
