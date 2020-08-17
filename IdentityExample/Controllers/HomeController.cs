@@ -95,7 +95,7 @@ namespace IdentityExample.Controllers
                                        Request.Host.ToString()
                                       );
 
-                await _emailService.SendAsync("test@test.com",
+                        await _emailService.SendAsync("test@test.com",
                                               "email verify",
                                                $"<a href=\"{link}\">Verify Email<a/>",
                                                true);
