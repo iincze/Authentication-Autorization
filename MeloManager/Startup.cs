@@ -1,3 +1,4 @@
+using MeloManager.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,8 @@ namespace MeloManager
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc( options => options.EnableEndpointRouting = false);
+            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>(); 
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -19,14 +22,12 @@ namespace MeloManager
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
 
-            app.UseEndpoints(endpoints =>
+            app.Run(async (context) =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
-                });
+                await context.Response.WriteAsync("Hello bello");
             });
         }
     }
