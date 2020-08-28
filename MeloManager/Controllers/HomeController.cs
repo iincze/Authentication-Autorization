@@ -8,6 +8,7 @@ using MeloManager.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace MeloManager.Controllers
 {
@@ -16,12 +17,17 @@ namespace MeloManager.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly ILogger<HomeController> _logger;
+
 
         public HomeController(IEmployeeRepository employeeRepository,
-                              IWebHostEnvironment hostingEnvironment)
+                              IWebHostEnvironment hostingEnvironment,
+                              ILogger<HomeController> logger)
         {
             _employeeRepository = employeeRepository;
             _hostingEnvironment = hostingEnvironment;
+            _logger = logger;
+            _logger.LogDebug(1, "NLog injected into HomeController");
         }
 
         [HttpGet]
@@ -181,18 +187,25 @@ namespace MeloManager.Controllers
             return uniqueFileName;
         }
 
-        public IActionResult Error(int? statusCode = null)
-        {
-            if (statusCode.HasValue)
-            {
-                if (statusCode == 404 || statusCode == 500)
-                {
-                    var viewName = statusCode.ToString();
-                    return View("NotFound");
-                }
-            }
-            return View("NotFound");
-            //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //public IActionResult Error(int? statusCode = null)
+        //{
+        //    if (statusCode.HasValue)
+        //    {
+        //        if (statusCode == 404 || statusCode == 500)
+        //        {
+        //            var viewName = statusCode.ToString();
+        //            return View("NotFound");
+        //        }
+        //    }
+        //    return View("NotFound");
+        //    //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
+
+
+        //public IActionResult Error()
+        //{
+        //    _logger.LogError($"The path {exceptionHandlerPathFeature.Path} " +
+        //        $"threw an exception {exceptionHandlerPathFeature.Error}");
+        //}
     }
 }
